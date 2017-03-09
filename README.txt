@@ -3,22 +3,24 @@ Author: Jordan Fike
 
 Build Instructions:
 
-1. If you have not already done so, download Java: https://java.com/en/download/
-2. Download the three Java source files from the repository here:
+1. If you have not already done so, download the Java JDK: https://java.com/en/download/
+2. Download the Java source files from the repository here:
 
 	https://github.com/jrdnfike/CodingChallenge.git
 
-3. In your desired execution directory, make a subdirectory called keyboard and
-copy the source files.
+	Keep the source files in the keyboard folder once copied to your desired directory.
 
-4. Modify the file KeyboardTest.java as needed to include desired test cases.
+3. Modify the file KeyboardTest.java as needed to include desired test cases.
 
-5. Compile the Java code using the command:
+NOTE: for a command line build, ensure the Java executables are available via your PATH.
+i.e. PATH contains INSTALL_PATH/jdk_version#/bin
+
+4. Compile the Java code using the command:
     
     UNIX: javac keyboard/*.java
     WINDOWS: javac keyboard\*.java
 
-6. Create the executable jar file using the following command:
+5. Create the executable jar file using the following command:
 
     UNIX: jar -cvfe KeyboardTest.jar keyboard.KeyboardTest keyboard/KeyboardTest.class keyboard/AutocompleteProvider.class keyboard/Candidate.class
     WINDOWS: jar -cvfe KeyboardTest.jar keyboard.KeyboardTest keyboard\KeyboardTest.class keyboard\AutocompleteProvider.class keyboard\Candidate.class
