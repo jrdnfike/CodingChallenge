@@ -61,18 +61,32 @@ public class AutocompleteProvider
         //The rank in terms of confidence of the current Candidate
         int resultsPosition = 0;
         
+        boolean doneSearching = false;
+        
         //Continue adding Candidate matches as results 
         //until we reach the end of the dictionary OR
         //we hit a non-match
-        while (dictionaryPosition < dictionary.size()
-                && currentCandidate.getWord().startsWith(fragment))
+        while (!doneSearching)
         {
             //Add the latest result to our output list
             results.add(resultsPosition, currentCandidate);
             
             //Advance alphabetically to the next stored Candidate
             dictionaryPosition++;
+            
+            //Ensure we do not go past the end of the list
+            if (dictionaryPosition == dictionary.size())
+            {
+                break;
+            }
+            
             currentCandidate = dictionary.get(dictionaryPosition);
+            
+            //If our next Candidate does not have the given prefix, stop
+            if (!currentCandidate.getWord().startsWith(fragment))
+            {
+                break;
+            }
             
             //Sort the latest result within the results so far by confidence
             resultsPosition = findConfidenceResultIndex(currentCandidate, results);
@@ -92,8 +106,10 @@ public class AutocompleteProvider
     public int findConfidenceResultIndex(Candidate toPlace, 
             ArrayList<Candidate> currentResults)
     {
-        //If no results yet, place as the first element
-        if (currentResults.isEmpty())
+        //If no results or new element has greater confidence than any so far,
+        //place as the first element
+        if (currentResults.isEmpty() || 
+                toPlace.getConfidence() > currentResults.get(0).getConfidence())
         {
             return 0;
         }
